@@ -1,0 +1,139 @@
+﻿@model MVCBootstrapDemo.Models.Inventory
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Inventory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CodeNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodeNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GenNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GenNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Maincategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Maincategory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Purchaser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Purchaser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmpID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmpID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Currency)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Currency)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnSellAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReturnSellAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnCurrency)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReturnCurrency)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

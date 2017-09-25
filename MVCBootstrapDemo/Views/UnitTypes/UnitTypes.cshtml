@@ -1,0 +1,86 @@
+﻿@model MVCBootstrapDemo.Models.UnitTypeModel
+
+@{
+    ViewBag.Title = "UnitTypes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@if (Model.unittypes.Count > 0)
+{
+<table class="table table-responsive">
+    <thead style="background-color:#bce8f1;border-color:#bce8f1">
+        <tr>
+            <th>
+                @Html.DisplayName("No")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>            
+            <th>
+                @Html.DisplayName("Type")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SortOrder)
+            </th>
+            <th>@Html.DisplayName("Action")</th>
+        </tr>
+    </thead> 
+    <tbody>
+        @foreach (var item in Model.unittypes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.No).
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>               
+                <td>
+                    @Html.DisplayFor(modelItem => item.UTypeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SortOrder)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @if (Model.IsDelete)
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    }
+                    else
+                    {
+                        <text>Action is not Available</text>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                <ul class="pagination pull-right">
+                    @foreach (var i in Model.dlpager)
+                    {
+                    <li class="@(Convert.ToInt32(i.Value) == Model.pageNumber ? "active" : "")">
+                            <a href="~/UnitTypes/UnitTypes?page=@i.Value">@i</a>
+                     </li>
+                    }
+                </ul>
+
+            </td>
+        </tr>
+    </tfoot>
+
+</table>
+}
+else
+{
+    <text> There are no data to display!</text>
+}
+

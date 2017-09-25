@@ -1,0 +1,211 @@
+﻿@model MVCBootstrapDemo.Models.InventoryModel
+
+@{
+    ViewBag.Title = "StockTotal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>StockTotal</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<form asp-controller="Inventories" asp-action="StockTotal">
+    <div class="row">
+        <div class="col-lg-4">
+            @Html.DropDownListFor(model => model.Maincategory, Model.ddlMaincategory, "--Select MainCategory--",
+            new { onchange = "document.location.href = '/Inventories/CList?mid=' + this.options[this.selectedIndex].value;", @class = "form-control" })
+            <br />
+        </div>
+        @if (Model.Maincategory > 0)
+        {
+            <div class="col-lg-4">
+
+                @Html.DropDownListFor(model => model.Category, Model.ddlCategory, "--Select Category--", new { @class = "form-control" })
+                <br />
+            </div>
+            <div class="col-lg-4">
+
+                @Html.DropDownListFor(model => model.TypeID, Model.ddlTypeID, "--Select Type--", new { @class = "form-control" })
+                <br />
+            </div>
+        }
+        else
+        {
+            <div class="col-lg-8">
+                <br />
+                <br />
+            </div>
+        }
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            @Html.DropDownListFor(model => model.DeptID, Model.ddlDepartment, "--Select Department--", new { @class = "form-control" })
+            <br />
+        </div>
+
+
+        <div class="col-lg-4">
+            @foreach (var r in Model.radiotypes)
+            {
+                <label>@Html.RadioButtonFor(m => Model.Status, r.ID) @r.Name</label>
+                //,new { name = "rdo" }
+                //https://stackoverflow.com/questions/6916322/mvc-postback-on-clicking-a-radio-button
+
+
+
+            }
+            <br />
+        </div>
+        <div class="col-lg-3">
+            @Html.EditorFor(model => model.CodeNo, new { htmlAttributes = new { @class = "form-control" } })
+            <br />
+        </div>
+        <div class="col-lg-1">
+            <input type="submit" value="Filter" />
+            <br />
+        </div>
+
+    </div>
+
+   
+</form>
+@if (Model.lstQty.Count > 0)
+{
+<table class="table table-responsive">
+        <thead style="background-color:#bce8f1;border-color:#bce8f1">
+        <tr>
+        <th>
+            @Html.DisplayName("Total Qty")
+        </th>
+        @if (Model.Status.Value != 3)
+        {
+            <th>
+                @Html.DisplayName("Total Amount")
+            </th>
+        }
+        else
+        {
+            <th>
+                @Html.DisplayName("Return Amount")
+            </th>
+        }       
+             
+    </tr>
+        </thead>
+        <tbody>
+         <tr>
+         <td>
+            <table class="table table-responsive">
+               
+                @foreach (var item in Model.lstQty)
+                {
+                    Model.i++;
+                <tr style="@(Convert.ToInt32(Model.i) % 2 != 0 ? "background-color:aliceblue" : "background-color:antiquewhite")" >
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MainCategory)
+                    </td>
+                    <td>
+                        @Html.DisplayName(":")
+                    </td>
+                    <td style="text-align:right">
+                        @Html.DisplayFor(modelItem => item.Qty)
+                    </td>
+                </tr>
+                }
+                <tr>
+                    <td>
+                        @Html.DisplayName("Total QTY")
+                    </td>
+                    <td>
+                        @Html.DisplayName(":")
+                    </td>
+                    <td style="text-align:right">
+                        @Html.DisplayFor(model => Model.No)
+                    </td>
+                </tr>
+                
+            </table>
+        </td>
+      @if (Model.Status.Value != 3)
+      {
+          <td>
+              <table class="table table-responsive">
+                  @foreach (var item in Model.lstAmt)
+                  {
+                      Model.i++;
+                      <tr style="@(Convert.ToInt32(Model.i) % 2 != 0 ? "background-color:aliceblue" : "background-color:antiquewhite")">
+                          <td>
+                              @Html.DisplayFor(modelItem => item.MainCategory)
+                          </td>
+                          <td>
+                              @Html.DisplayName(":")
+                          </td>
+                          <td style="text-align:right">
+                              @Html.DisplayFor(modelItem => item.AmountCurrency)
+                          </td>
+                      </tr>
+                  }
+                       <tr>
+                        <td>
+                            @Html.DisplayName("Total Amount")
+                        </td>
+                        <td>
+                            @Html.DisplayName(":")
+                        </td>
+                           <td style="text-align:right">
+                               @Html.DisplayFor(model => Model.Total)
+                           </td>
+                     </tr>
+                  
+
+              </table>
+          </td>
+      }
+      else
+      {
+           <td>
+               <table class="table table-responsive">
+                   @foreach (var item in Model.lstReturn)
+                   {
+                       Model.i++;
+                       <tr style="@(Convert.ToInt32(Model.i) % 2 != 0 ? "background-color:aliceblue" : "background-color:antiquewhite")">
+                           <td>
+                               @Html.DisplayFor(modelItem => item.MainCategory)
+                           </td>
+                           <td>
+                               @Html.DisplayName(":")
+                           </td>
+                           <td style="text-align:right">
+                               @Html.DisplayFor(modelItem => item.AmountCurrency)
+                           </td>  
+                       </tr>
+                   }
+                    <tr>
+                        <td>
+                            @Html.DisplayName("Total Return Amount")
+                        </td>
+                        <td>
+                            @Html.DisplayName(":")
+                        </td>
+                        <td style="text-align:right">
+                            @Html.DisplayFor(model => Model.RAmount)
+                        </td>
+                    </tr>
+                   
+
+               </table>
+           </td>
+      }
+
+    </tr>
+  
+        </tbody>
+
+</table>
+}
+else
+{
+    <text> There are no data to display!</text>
+}

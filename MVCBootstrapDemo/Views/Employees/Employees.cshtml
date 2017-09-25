@@ -1,0 +1,111 @@
+﻿@model MVCBootstrapDemo.Models.EmployeeModel
+
+@{
+    ViewBag.Title = "Employees";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+    <form asp-controller="Employees" asp-action="Employees">
+        <div class="col-lg-12">
+            <div class="col-lg-3">
+                @Html.DropDownListFor(model => model.E_Department, Model.ddlDepartmant, "--Select Department--", new { @class = "form-control" })
+                <br />
+            </div>
+            <div class="col-lg-3">
+                @Html.DropDownListFor(model => model.E_Position, Model.ddlPosition, "--Select Position--", new { @class = "form-control" })
+                <br />
+            </div>
+            <div class="col-lg-3">
+                @Html.EditorFor(model => model.E_Username, new { htmlAttributes = new { @class = "form-control" } })
+                <br />
+            </div>
+            <div class="col-lg-3">                
+                <input type="submit" value="Filter" />
+                <br />
+            </div>
+
+        </div>
+     </form>
+@if (Model.Employees.Count > 0)
+{
+        <table class="table table-responsive">
+            <thead style="background-color:#bce8f1;border-color:#bce8f1">
+                <tr>
+                    <th>@Html.DisplayName("No")</th>
+                    <th>
+                        @Html.DisplayName("Full Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Department Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Position Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Active Or InActive")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Action")
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.Employees)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.No)</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.E_FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ActiveName)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.E_ID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.E_ID }) |
+                            @if (item.IsDelete)
+                    {
+                                @Html.ActionLink("Delete", "Delete", new { id = item.E_ID })
+                            }
+                            else
+                            {
+                                <text>Action is not available</text>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <ul class="pagination pull-right">
+                            @foreach (var item in Model.dlPager)
+                            {
+                                <li class="@(Convert.ToInt32(item.Value) == Model.PageNumber ? "active" : "")">
+                                    <a href="~/Employees/Employees?page=@item.Value&E_Department=@Model.E_Department&E_Position=@Model.E_Position&E_Username=@Model.E_Username">@item</a>
+                                </li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            </tfoot>
+
+        </table>
+        }
+        else
+        {
+        <text> There are no data to display!</text>
+        }

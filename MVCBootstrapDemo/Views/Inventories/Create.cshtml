@@ -1,0 +1,319 @@
+﻿@model MVCBootstrapDemo.Models.InventoryModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Create</h2>
+<div class="container">
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+  <form asp-controller="Inventories" asp-action="Stock">     
+      @Html.HiddenFor(m =>m.GenNo)
+        <h4>Inventory</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-2">
+                    @Html.Label("Code No:", htmlAttributes: new { @class = "control-label" })
+                    <br />
+                </div>
+                <div class="col-lg-4">
+                    @Html.EditorFor(model => model.CodeNo, new { htmlAttributes = new { @class = "form-control" , @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.CodeNo, "", new { @class = "text-danger" })
+                    <br/>
+                </div>
+            </div>
+         
+            <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                    @Html.Label("Main Category:", htmlAttributes: new { @class = "control-label" })
+                    <br/>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.DropDownListFor(model => model.Maincategory, Model.ddlMaincategory, "--Select MainCategory--",
+                        new { onchange = "document.location.href = '/Inventories/CCList?mid=' + this.options[this.selectedIndex].value;", @class = "form-control" })
+                    <br/>
+                    </div>
+                    @if (Model.Maincategory > 0)
+                    {
+                        <div class="col-lg-4">
+                            @Html.DropDownListFor(model => model.Category, Model.ddlCategory, "--Select Category--", new { @class = "form-control" })
+                       <br/>
+                        </div>
+                    }
+                </div>
+
+            <div class="row">           
+            <div class="col-lg-4"></div>
+            <div class="col-lg-3">
+                @foreach(var r in Model.radiotypes)
+                {
+                    <label class="radio-inline">
+                        @Html.RadioButtonFor(model=>model.rdo, r.ID, new { onCLick = "ShowOption(this)" })@r.Name
+                    </label>
+                }                
+            </div>
+            <div class="col-lg-4" id="div2">
+                @Html.DropDownListFor(model => model.TypeID, Model.ddlTypeID, "--Select--", new { @class = "form-control" })
+                <br />
+            </div>
+            <div class="col-lg-4" id="div3" style="display:none">
+                @Html.DropDownListFor(model => model.TypeID, Model.ddlTypeModel, "--Select--", new { @class = "form-control"})
+                <br />
+            </div>
+        </div>
+          
+            <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                    @Html.Label("Purchaser:", htmlAttributes: new { @class = "control-label" })
+                    <br/>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.EditorFor(model => model.Purchaser, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Purchaser, "", new { @class = "text-danger" })                    
+                    <br/>
+                    </div>            
+            </div>
+
+            <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                    @Html.Label("Purchase Date:", new { @class = "control-label" })
+                    <br/>
+                    </div>
+                <div class='col-lg-4'>
+                    @*<div class='input-group date' id='datetimepicker6'>*@
+                        @Html.EditorFor(model => model.PurchaseDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PurchaseDate, "", new { @class = "text-danger" })
+                        @*<span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>*@     
+                    <br />
+                </div>
+                </div>
+         
+            <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                    @Html.Label("Location:", htmlAttributes: new { @class = "control-label" })
+                    <br/>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.DropDownListFor(model => model.DeptID, Model.ddlDepartment, "--Select Department--", new { @class = "form-control" })
+                    <br/>
+                    </div>
+                </div>
+          
+            <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                    @Html.Label("Use Date:", htmlAttributes: new { @class = "control-label" })
+                    <br/> 
+                    </div>                   
+                        <div class='col-lg-4'>
+                            @*<div class="form-group">
+                                <div class='input-group date' id='datetimepicker7'>*@
+                                    @Html.EditorFor(model => model.UseDate, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.UseDate, "", new { @class = "text-danger" })
+                                    @*<span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>*@                       
+                    <br/>
+                    </div>
+                </div>
+           
+            <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">                    
+                    @Html.Label("User Name(Owner):", htmlAttributes: new { @class = "control-label" })
+                     <br/>
+                     </div>
+                    <div class="col-lg-4">
+                        @Html.DropDownListFor(model => model.EmpID, Model.ddlEmp, "--Select User Name(Owner)--", new { @class = "form-control" })
+                    <br/>
+                    </div>
+                </div>
+           
+            <div class="row">
+            <div class="col-lg-3">
+                <br />
+            </div>
+            <div class="col-lg-4">
+                @foreach (var r in Model.llradiotypes)
+                {
+                    <label class="radio-inline">
+                        @Html.RadioButtonFor(model => model.Status, r.ID, new { onCLick = "Show(this)" })@r.Name
+                    </label>
+                }
+                <br />
+            </div>
+            <div class="col-lg-5">
+                <br/>
+            </div>
+            </div>
+        <br />
+                <div class="row" id="hdInUse">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                    @Html.Label("Amount:", htmlAttributes: new { @class = "control-label" })
+                     <br/>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                        <br/>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.DropDownListFor(model => model.Currency, Model.ddlCurrency, "--Select Currency--", new { @class = "form-control" })
+                        <br/>
+                    </div>
+                </div>
+
+            <div class="row" id="hdDemage" style="display:none">              
+                    <div class="col-lg-3">
+                    @Html.Label("Return Sell Amount:", htmlAttributes: new { @class = "control-label" })
+                    <br/>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.EditorFor(model => model.ReturnSellAmount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ReturnSellAmount, "", new { @class = "text-danger" })
+                        <br/>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.DropDownListFor(model => model.ReturnCurrency, Model.ddlCurrency, "--Select Currency--", new { @class = "form-control" })
+                   <br/>
+                    </div>
+                </div>
+          
+
+            <div class="row">
+                <div class="col-lg-1">
+                    <br/>
+                </div>
+                <div class="col-lg-2">
+                    @Html.Label("Remark", htmlAttributes: new { @class = "control-label" })
+                <br/>    
+                </div>
+                    <div class="col-lg-8">
+                        @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control", rows = "5" } })
+                        @*@Html.TextAreaFor(model => model.Remark, 5, 50, new { @class = "form-control" })*@
+                        @*@Html.TextAreaFor(model => model.Remark, new { @class = "form-control", @rows = 5 })*@
+                        @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                        <br/>
+                    </div>
+              
+                
+                <div class="col-lg-1">
+                    <br/>
+                </div>
+           </div>
+         
+            <div class="row">
+                <div class="col-lg-offset-3 col-lg-9">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+</form>
+}
+    <div class="row">
+        @Html.ActionLink("Back to List", "Stock")
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval") 
+    @Scripts.Render("~/bundles/datetimepicker")
+    @Styles.Render("~/Content/datetimepickercss")
+
+<script type="text/javascript">
+        $(function () {
+            $('#PurchaseDate').datetimepicker({
+                viewMode: 'years',
+                format: 'YYYY/MM/DD'
+            });
+        });
+</script>
+<script type="text/javascript">
+            $(function () {
+                $('#UseDate').datetimepicker({
+                    viewMode: 'years',
+                    format: 'YYYY/MM/DD'
+                });
+            });
+    </script>
+
+    @*<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker6').datetimepicker();
+        $('#datetimepicker7').datetimepicker({
+            useCurrent: false 
+        });
+        $("#datetimepicker6").on("dp.change", function (e) {
+            $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+        });
+        $("#datetimepicker7").on("dp.change", function (e) {
+            $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+</script>*@
+
+}
+
+<script type='text/javascript'>  
+    function ShowOption(radio) {
+        var setdRad = radio.value;
+        HideAll();
+
+        if (setdRad == 4)
+        {
+            $('#div2').show();
+        }
+        else if (setdRad == 5) {
+            $('#div3').show();
+        }
+        
+    }
+    function HideAll()
+    {       
+        $('#div2').hide();
+        $('#div3').hide();      
+    }
+</script>
+
+<script type="text/javascript">
+    function Show(radio) {
+        var a = radio.value;
+        Hide();
+        if (a == 1 || a == 2) {
+            $('#hdInUse').show();
+
+        }
+        else if (a == 3) {
+            $('#hdDemage').show();
+        }
+    }
+    function Hide() {
+        $('#hdDemage').hide();
+        $('#hdInUse').hide();
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+

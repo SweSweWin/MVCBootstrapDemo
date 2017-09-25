@@ -1,0 +1,87 @@
+﻿@model MVCBootstrapDemo.Models.CategoryModel
+@using System.Web.Helpers;
+
+@{
+    ViewBag.Title = "Categories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@if (Model.Categories.Count > 0)
+{
+<table class="table table-responsive">
+    <thead style="background-color:#bce8f1;border-color:#bce8f1">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MainCategory)
+            </th>
+            <th>
+                    @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SortOrder)
+            </th>
+            <th>@Html.DisplayName("Action")</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in @Model.Categories)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.No)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MName)
+        </td>        
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SortOrder)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @if (item.IsDelete)
+            {
+               @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            }
+            else
+            {
+                <text>Action is not available</text>
+            }        
+           
+        </td>
+    </tr>
+}
+</tbody>
+    <tfoot>
+        <tr>
+                <td colspan="5">
+                   <ul class="pagination pull-right">                     
+                       @foreach (var item in Model.dlPager)
+                       {
+                        <li class="@(Convert.ToInt32(item.Value) == Model.PageNumber ? "active" : "")">
+                            <a href="~/Categories/Categories?page=@item.Value">@item</a>
+                        </li>
+                       }                        
+                    </ul>
+                </td>
+            </tr>
+    </tfoot>
+</table>
+}  
+else
+{
+    <text> There are no data to display!</text>
+}
+
+<br />

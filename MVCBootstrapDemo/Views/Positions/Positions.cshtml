@@ -1,0 +1,79 @@
+﻿@model MVCBootstrapDemo.Models.PositionModel
+
+@{
+    ViewBag.Title = "Positions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@if (Model.positions.Count > 0)
+{
+<table class="table table-responsive">
+    <thead style="background-color:#bce8f1;border-color:#bce8f1">
+        <tr>
+            <th>
+                @Html.DisplayName("No")
+            </th>
+            <th>
+                @Html.DisplayName("Name")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pos_SortOrder)
+            </th>
+            <th>@Html.DisplayName("Action")</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.positions)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.No).
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pos_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pos_SortOrder)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Pos_ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Pos_ID }) |
+                    @if (Model.IsDelete)
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Pos_ID })
+                    }
+                    else
+                    {
+                        <text>Action is not available</text>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4">
+                <ul class="pagination pull-right" >
+                    @foreach (var i in Model.dlPager)
+                    {
+                    <li class="@(Convert.ToInt32(i.Value)==Model.pageNumber?"active":"")">
+                        <a href="~/Positions/Positions?page=@i.Value">@i</a>
+                    </li>
+                    }
+                </ul>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+}
+else
+{
+    <text>There are no data to display!</text>
+}

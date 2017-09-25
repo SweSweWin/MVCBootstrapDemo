@@ -1,0 +1,229 @@
+﻿@model MVCBootstrapDemo.Models.InventoryModel
+
+@{
+    ViewBag.Title = "Stock List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<form asp-controller="Inventories" asp-action="Stock">
+    <div class="row">
+        <div class="col-lg-4">
+            @Html.DropDownListFor(model => model.Maincategory, Model.ddlMaincategory, "--Select MainCategory--",
+            new { onchange = "document.location.href = '/Inventories/CategoryList?mid=' + this.options[this.selectedIndex].value;", @class = "form-control" })
+            <br />
+        </div>
+        @if (Model.Maincategory > 0)
+        {
+            <div class="col-lg-4">
+
+                @Html.DropDownListFor(model => model.Category, Model.ddlCategory, "--Select Category--", new { @class = "form-control" })
+                <br />
+            </div>
+            <div class="col-lg-4">
+
+                @Html.DropDownListFor(model => model.TypeID, Model.ddlTypeID, "--Select Type--", new { @class = "form-control" })
+                <br />
+            </div>
+        }
+        else
+        {
+            <div class="col-lg-8">
+                <br />
+                <br />
+            </div>
+         }               
+        </div>
+  
+        <div class="row">
+            <div class="col-lg-4">
+                @Html.DropDownListFor(model => model.DeptID, Model.ddlDepartment, "--Select Department--", new { @class = "form-control" })
+                <br />
+            </div>
+        
+       
+                <div class="col-lg-4">
+                @foreach (var r in Model.radiotypes)
+                {
+                    <label>@Html.RadioButtonFor(m => Model.Status, r.ID) @r.Name</label>  
+                }
+                 <br/>
+                </div>
+                <div class="col-lg-3">
+                    @Html.EditorFor(model => model.CodeNo, new { htmlAttributes = new { @class = "form-control" } })
+                    <br />
+                </div>
+                <div class="col-lg-1">
+                    <input type="submit" value="Filter" />
+                    <br />
+                </div>
+
+            </div>
+    </form>
+    @if (Model.inventories.Count > 0)
+    {
+    <table class="table table-responsive">
+        <thead style="background-color:#bce8f1;border-color:#bce8f1">
+            <tr>
+                <th>
+                    @Html.DisplayName("No")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CodeNo)
+                </th>
+                <th>
+                    @Html.DisplayName("Size/Model")
+                </th>
+                <th>
+                    @Html.DisplayName("Owner")
+                </th>
+                <th>
+                    @Html.DisplayName("Location")
+                </th>
+                <th>
+                    @Html.DisplayName("Purchase Date")
+                </th>
+                @if (Model.Status.Value != 3)
+                {
+                <th style="text-align:right">
+                    @Html.DisplayName("Amount")
+                </th>
+                <th>
+                    @Html.DisplayName("Currency")
+                </th>
+                }
+                else
+                {
+                <th style="text-align:right">
+                    @Html.DisplayName("Return Amount")
+                </th>
+                <th>
+                    @Html.DisplayName("Currency")
+                </th>
+                }
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.inventories) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem=>item.No).
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodeNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem=>item.UnitType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem=>item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem=>item.Department)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem=>item.PurchaseDate)
+            </td>
+            @if (Model.Status.Value != 3)
+            {
+            <td style="text-align:right">
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem=>item.CurCode)
+            </td>
+            }
+            else
+            {
+                <td style="text-align:right">
+                    @Html.DisplayFor(modelItem=>item.ReturnSellAmountValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem=>item.RetrunCurCode)
+                </td>
+            }
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            </td>
+        </tr>
+    }
+
+            <tr>
+                <td colspan="5"></td>
+                <td>
+                    @Html.DisplayName("Total :")
+                </td>
+                @if (Model.Status.Value != 3)
+                {
+                <td style="text-align:right">
+                    @Html.DisplayFor(modelItem => Model.Total)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.PerCur)
+                </td>
+                }
+                else
+                {
+                <td style="text-align:right">
+                    @Html.DisplayFor(modelItem => Model.RAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.RCurCode)
+                </td>
+                }
+                <td></td>
+            </tr>
+            @if (Model.Status.Value != 3)
+            {
+             <tr>
+                <td colspan="5"></td>
+                <td>
+                    @Html.DisplayName("Grand Total :")
+                </td>
+               
+                <td style="text-align:right">
+                    @Html.DisplayFor(modelItem => Model.GrandTotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.lblCurCode)
+                </td>
+                
+                    <td>
+                       
+                    </td>
+                    <td>
+                       
+                    </td>
+                
+                <td></td>
+              </tr>
+             }
+    </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="11">
+                    <ul class="pagination pull-right">
+                        @foreach (var item in Model.dlpager)
+                        {
+                            <li class="@(Convert.ToInt32(item.Value) == Model.pageNumber ? "active" : "")">
+                                <a href="~/Inventories/Stock?page=@item.Value&Maincategory=@Model.Maincategory&Category=@Model.Category&DeptID=@Model.DeptID&TypeID=@Model.TypeID&Status=@Model.Status&CodeNo=@Model.CodeNo">@item</a>
+                            </li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        </tfoot>
+
+    </table>
+    }
+    else
+    {
+        <text> There are no data to display!</text>
+    }

@@ -1,0 +1,67 @@
+﻿@model MVCBootstrapDemo.Models.LoginModel
+
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@if (Model.users.Count > 0)
+{
+<table class="table table-responsive">
+    <thead style="background-color:#bce8f1;border-color:#bce8f1">
+        <tr>
+            <th>
+                @Html.DisplayName("No")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.U_Name)
+            </th>
+
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.users)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.No).
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.U_Name)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.U_ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.U_ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.U_ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">
+                <ul class="pagination pull-right">
+                    @foreach(var i in Model.dlpager)
+                    {
+                        <li class="@(Convert.ToInt32(i.Value)==Model.pageNumber?"active":"")">
+                            <a href="~/User/Users?page=@i.Value">@i</a>
+                        </li>
+                    }
+                </ul>
+
+            </td>
+        </tr>
+    </tfoot>
+</table>
+}
+else
+{
+    <text>There is no data to display!</text>
+}

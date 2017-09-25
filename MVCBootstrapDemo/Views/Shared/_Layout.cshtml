@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MVC Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#bce8f1;border-color:#bce8f1">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (ViewContext.RouteData.Values["action"].ToString() == "Dashboard")
+                    {
+                    <li class="active">@Html.ActionLink("Dashboard", "Dashboard", "Admin", new { @style = "background-color:#86BED1;" })</li>
+                    }
+                    else
+                    {
+                    <li>@Html.ActionLink("Dashboard", "Dashboard", "Admin")</li>
+                    }
+                    @if (ViewContext.RouteData.Values["action"].ToString() == "Index")
+                    {
+                    <li class="active">@Html.ActionLink("Home", "Index", "Home", new { @style = "background-color:#86BED1;" })</li>
+                    }
+                    else
+                    {
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    }                    
+                    @if (ViewContext.RouteData.Values["action"].ToString() == "About")
+                    {
+                    <li class="active">@Html.ActionLink("About", "About", "Home", new { @style = "background-color:#86BED1;" })</li>
+                    }
+                    else
+                    {
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    }
+                    @if (ViewContext.RouteData.Values["action"].ToString() == "Contact")
+                    {
+                    <li class="active">@Html.ActionLink("Contact", "Contact", "Home", new { @style = "background-color:#86BED1;" })</li>
+                    }
+                    else
+                    {
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    }
+                    @if (ViewContext.RouteData.Values["action"].ToString() == "Users")
+                    {
+                    <li class="active">@Html.ActionLink("Users", "Users", "Home", new { @style = "background-color:#86BED1;" })</li>
+                    }
+                    else
+                    {
+                    <li>@Html.ActionLink("Users", "Users", "Home")</li>
+                    }
+@if (ViewContext.RouteData.Values["action"].ToString() == "MainCategories" |
+     ViewContext.RouteData.Values["action"].ToString() == "Categories" |
+     ViewContext.RouteData.Values["action"].ToString() == "SubCategories" |
+     ViewContext.RouteData.Values["action"].ToString() == "UnitTypes" |
+     ViewContext.RouteData.Values["action"].ToString() == "Currencies" |
+     ViewContext.RouteData.Values["action"].ToString() == "Positions"|
+     ViewContext.RouteData.Values["action"].ToString() == "Departments" |
+     ViewContext.RouteData.Values["action"].ToString() == "Employees" 
+    )
+{
+                    <li class="dropdown active" style="background-color:#bce8f1;border-color:#bce8f1" >
+                        <a href="#" class="dropdown-toggle" style = "background-color:#86BED1;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >Code Setup<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            @if (ViewContext.RouteData.Values["action"].ToString() == "MainCategories")
+                            {
+                                <li class="active">@Html.ActionLink("Main Category", "MainCategories", "Home", new { @style = "background-color:#86BED1;" })</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Main Category", "MainCategories", "Home")</li>
+                            }                           
+                            <li role="separator" class="divider"></li>
+                            @if (ViewContext.RouteData.Values["action"].ToString() == "Categories")
+                            {
+                                <li class="active">@Html.ActionLink("Category", "Categories", "Home", new { @style = "background-color:#86BED1;" })</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Category", "Categories", "Home")</li>
+                            } 
+                            <li role="separator" class="divider"></li>
+                            @if (ViewContext.RouteData.Values["action"].ToString() == "SubCategories")
+                            {
+                                <li class="active">@Html.ActionLink("SubCategory", "SubCategories", "Home", new { @style = "background-color:#86BED1;" })</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("SubCategory", "SubCategories", "Home")</li>
+                            }                           
+                            <li role="separator" class="divider"></li>
+                            @if (ViewContext.RouteData.Values["action"].ToString() == "UnitTypes")
+                            {
+                                <li class="active">@Html.ActionLink("Unit", "UnitTypes", "Home", new { @style = "background-color:#86BED1;" })</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Unit", "UnitTypes", "Home")</li>
+                            }                            
+                            <li role="separator" class="divider"></li>
+                            @if (ViewContext.RouteData.Values["action"].ToString() == "Currencies")
+                            {
+                                <li class="active">@Html.ActionLink("Currency", "Currencies", "Home", new { @style = "background-color:#86BED1;" })</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Currency", "Currencies", "Home")</li>
+                            }                           
+                            <li role="separator" class="divider"></li>
+                            @if (ViewContext.RouteData.Values["action"].ToString() == "Positions")
+                            {
+                                <li class="active">@Html.ActionLink("Position", "Positions", "Home", new { @style = "background-color:#86BED1;" })</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Position", "Positions", "Home")</li>
+                            }                            
+                            <li role="separator" class="divider"></li>
+                            @if (ViewContext.RouteData.Values["action"].ToString() == "Departments")
+                            {
+                                <li class="active">@Html.ActionLink("Department", "Departments", "Home", new { @style = "background-color:#86BED1;" })</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Department", "Departments", "Home")</li>
+                            }                           
+                            <li role="separator" class="divider"></li>
+                            @if (ViewContext.RouteData.Values["action"].ToString() == "Employees")
+                            {
+                                <li class="active">@Html.ActionLink("Employees", "Employees", "Home", new { @style = "background-color:#86BED1;" })</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Employees", "Employees", "Home")</li>
+                            }                            
+                        </ul>
+                    </li>
+}
+else
+{
+    <li class="dropdown" style="background-color:#bce8f1;border-color:#bce8f1">
+        <a href="#" class="dropdown-toggle" style="background-color:#bce8f1;border-color:#bce8f1"
+           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Code Setup<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            @if (ViewContext.RouteData.Values["action"].ToString() == "MainCategories")
+            {
+                <li class="active">@Html.ActionLink("Main Category", "MainCategories", "Home", new { @style = "background-color:#86BED1;" })</li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Main Category", "MainCategories", "Home")</li>
+            }
+            <li role="separator" class="divider"></li>
+            @if (ViewContext.RouteData.Values["action"].ToString() == "Categories")
+            {
+                <li class="active">@Html.ActionLink("Category", "Categories", "Home", new { @style = "background-color:#86BED1;" })</li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Category", "Categories", "Home")</li>
+            }
+            <li role="separator" class="divider"></li>
+            @if (ViewContext.RouteData.Values["action"].ToString() == "SubCategories")
+            {
+                <li class="active">@Html.ActionLink("SubCategory", "SubCategories", "Home", new { @style = "background-color:#86BED1;" })</li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("SubCategory", "SubCategories", "Home")</li>
+            }
+            <li role="separator" class="divider"></li>
+            @if (ViewContext.RouteData.Values["action"].ToString() == "UnitTypes")
+            {
+                <li class="active">@Html.ActionLink("Unit", "UnitTypes", "Home", new { @style = "background-color:#86BED1;" })</li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Unit", "UnitTypes", "Home")</li>
+            }
+            <li role="separator" class="divider"></li>
+            @if (ViewContext.RouteData.Values["action"].ToString() == "Currencies")
+            {
+                <li class="active">@Html.ActionLink("Currency", "Currencies", "Home", new { @style = "background-color:#86BED1;" })</li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Currency", "Currencies", "Home")</li>
+            }
+            <li role="separator" class="divider"></li>
+            @if (ViewContext.RouteData.Values["action"].ToString() == "Positions")
+            {
+                <li class="active">@Html.ActionLink("Position", "Positions", "Home", new { @style = "background-color:#86BED1;" })</li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Position", "Positions", "Home")</li>
+            }
+            <li role="separator" class="divider"></li>
+            @if (ViewContext.RouteData.Values["action"].ToString() == "Departments")
+            {
+                <li class="active">@Html.ActionLink("Department", "Departments", "Home", new { @style = "background-color:#86BED1;" })</li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Department", "Departments", "Home")</li>
+            }
+            <li role="separator" class="divider"></li>
+            @if (ViewContext.RouteData.Values["action"].ToString() == "Employees")
+            {
+                <li class="active">@Html.ActionLink("Employees", "Employees", "Home", new { @style = "background-color:#86BED1;" })</li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Employees", "Employees", "Home")</li>
+            }
+        </ul>
+    </li>
+}
+                    <li>@Html.ActionLink("Stocks", "Stock", "Inventories")</li>
+                    <li>@Html.ActionLink("Stocks Total", "StockTotal", "Inventories")</li>
+                    <li>@Html.ActionLink("Move Location", "MoveLocation", "Inventories")</li>
+                    <li><a class="nav-link" href="@Url.Action("Login","Home")"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">             
+            @RenderBody()
+        </section>
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

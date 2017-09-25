@@ -1,0 +1,59 @@
+﻿@model MVCBootstrapDemo.Models.Employee
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.E_FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.E_FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.E_Department)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.E_Department)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.E_Position)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.E_Position)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.E_Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.E_Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.E_Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.E_Active)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.E_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
